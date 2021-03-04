@@ -9,6 +9,5 @@ class CarSerializer(serializers.ModelSerializer):
             'id',
             'make',
             'model',
-            'avg_rating'
         ]
 
