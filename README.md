@@ -49,3 +49,14 @@ You can run tests:
 # Logging issues:
 
 Any issues when interracting with API are printed out in the terminal.
+
+# Development
+Install requirements:
+```
+pip install -r requirements.txt
+```
+
+To run the project locally:
+```
+py manage.py runserver --settings car_api.settings_local
+```
