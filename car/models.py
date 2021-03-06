@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -9,7 +8,11 @@ class Car(models.Model):
     in other case make and model could be separate models
     """
     make = models.CharField(max_length=50, null=True, blank=False)
-    model = models.CharField(max_length=50, null=True, blank=False, unique=True)
+    model = models.CharField(
+        max_length=50,
+        null=True,
+        blank=False,
+        unique=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -26,11 +29,16 @@ class Car(models.Model):
 
 
 class Rate(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE, null=True, blank=True)
-    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    car = models.ForeignKey(
+        Car,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True)
+    rating = models.IntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5)])
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.car} - {self.rating}"
-
-

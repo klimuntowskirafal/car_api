@@ -40,7 +40,8 @@ def add_new_car_if_found_in_external_api(self, request):
         # validate number of parameters in POST body request
         # only 'make' and 'model' can be in a request body
         if len(request.data) != expected_request_parameters:
-            logger.warning(f"Wrong key:value pairs in request body '{request.data}'")
+            logger.warning(
+                f"Wrong key:value pairs in request body '{request.data}'")
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         make = request.data['make']
@@ -50,9 +51,12 @@ def add_new_car_if_found_in_external_api(self, request):
             serializer = CarSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED)
             else:
-                logger.warning(f"request serialization problem '{request.data}'")
+                logger.warning(
+                    f"request serialization problem '{request.data}'")
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             logger.warning(f"car not found in external API {make} {model}")
@@ -79,7 +83,12 @@ def car_exist_in_external_api(make, model):
         return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
     # find model in api
-    results = list(filter(lambda x: x.get("Model_Name", "") == model, response['Results']))
+    results = list(
+        filter(
+            lambda x: x.get(
+                "Model_Name",
+                "") == model,
+            response['Results']))
 
     return len(results) > 0
 
