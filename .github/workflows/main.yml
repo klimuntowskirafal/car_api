@@ -28,5 +28,5 @@ jobs:
         run: pip install -r requirements.txt
       - name: run tests
         env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SECRET_KEY: ${{ secrets.CARAPI_SECRET_KEY }}
         run: python manage.py test
