@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count
+from django.db.models import Count
 from django.http import JsonResponse
 from .models import Car, Rate
 from rest_framework import status
@@ -32,15 +32,18 @@ class RateACar(APIView):
         try:
             # valide only two parameters are send to the endpoint
             if len(request.data) != expected_request_parameters:
-                logger.warning(f"Wrong key:value pairs in request body '{request.data}'")
+                logger.warning(
+                    f"Wrong key:value pairs in request body '{request.data}'")
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
             car_id = request.data["car_id"]
             rating = request.data["rating"]
 
-            # validate if passed request rating is integer, return ValueError if not
+            # validate if passed request rating is integer, return ValueError
+            # if not
             if isinstance(rating, float):
-                logger.warning(f"rating value must be an integer: {request.data}")
+                logger.warning(
+                    f"rating value must be an integer: {request.data}")
                 return Response(status=status.HTTP_400_BAD_REQUEST)
             car = get_car_object(car_id=car_id, class_name=type(self).__name__)
             instance = Rate(car=car, rating=rating)
@@ -59,7 +62,8 @@ class CarPopularity(APIView):
 
     def get(self, request):
         popular_cars = []
-        cars = Car.objects.annotate(num_rate=Count('rate')).order_by('-num_rate')
+        cars = Car.objects.annotate(
+            num_rate=Count('rate')).order_by('-num_rate')
         for car in cars:
             data = {
                 'id': car.id,
@@ -72,4 +76,3 @@ class CarPopularity(APIView):
         return JsonResponse(popular_cars,
                             json_dumps_params={'indent': 2},
                             safe=False)
-
