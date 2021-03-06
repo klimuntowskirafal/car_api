@@ -4,12 +4,15 @@ from .models import Car, Rate
 
 class CarAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'make',
         'model',
+        'created'
     ]
     list_filter = [
         'make',
         'model',
+        'created'
     ]
 
 
