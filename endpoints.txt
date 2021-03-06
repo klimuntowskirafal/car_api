@@ -1,0 +1,51 @@
+- GET /cars/ : display all stored  cars in database
+Response:
+[
+{
+  "id" : 1,
+  "make" : "Volkswagen",
+  "model" : "Golf",
+  "avg_rating" : 5.0,
+},
+{
+  "id" : 2,
+  "make" : "Volkswagen",
+  "model" : "Passat",
+  "avg_rating" : 4.7,
+}
+]
+
+- POST /cars/ : add car to the database. Data will be validated with an external API
+
+Content-Type: application/json;charset=UTF-8
+{
+  "make" : "Volkswagen",
+  "model" : "Golf",
+}
+
+- DELETE /cars/{ id }/ - delete object from database
+
+- POST /rate/ : rate a car
+
+Content-Type: application/json;charset=UTF-8
+{
+  "car_id" : 1,
+  "rating" : 5,
+}
+
+- GET /popular/ : presents ranking of cars based on a number of rates particular car received
+Response:
+[
+{
+  "id" : 1,
+  "make" : "Volkswagen",
+  "model" : "Golf",
+  "rates_number" : 100,
+},
+{
+  "id" : 2,
+  "make" : "Volkswagen",
+  "model" : "Passat",
+  "rates_number" : 31,
+}
+]

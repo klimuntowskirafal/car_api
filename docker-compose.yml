@@ -5,6 +5,7 @@ services:
     image: postgres
     environment:
 #in production variable should be stored in .env that should not be available in repository
+# for demonstration purposes use some defaults
       - POSTGRES_DB=car_api
       - POSTGRES_USER=car_api
       - POSTGRES_PASSWORD=car_api123
@@ -19,9 +20,5 @@ services:
     depends_on:
       - db
     environment:
-# env variablies can be automatically read from .env file in project root dir
-#      - SECRET_KEY=${SECRET_KEY}
-#      - DEBUG=${DEBUG}
-# for demonstration purposes use some defaults
       - SECRET_KEY=${SECRET_KEY}
       - DEBUG=${DEBUG}
