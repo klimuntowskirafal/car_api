@@ -4,25 +4,26 @@ from .models import Car, Rate
 
 class CarAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'make',
         'model',
-        'avg_rating'
+        'created'
     ]
     list_filter = [
         'make',
         'model',
-        'avg_rating',
+        'created'
     ]
 
 
 class RateAdmin(admin.ModelAdmin):
     list_display = [
-        'rate_model',
+        'car',
         'rating',
         'created'
     ]
     list_filter = [
-        'rate_model',
+        'car',
         'rating',
         'created'
     ]

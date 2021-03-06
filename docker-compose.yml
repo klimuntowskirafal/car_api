@@ -24,4 +24,4 @@ services:
 #      - DEBUG=${DEBUG}
 # for demonstration purposes use some defaults
       - SECRET_KEY=${SECRET_KEY}
-      - DEBUG=True
+      - DEBUG=${DEBUG}
