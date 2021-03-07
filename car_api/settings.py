@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("CARAPI_DEBUG") == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'car-api.herokuapp.com', '.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'car-django-api.herokuapp.com', '.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
