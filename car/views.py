@@ -40,8 +40,7 @@ class RateACar(APIView):
             rating = request.data["rating"]
 
             # validate if passed request rating is integer, return ValueError
-            # if not
-            if isinstance(rating, float):
+            if not isinstance(rating, int):
                 logger.warning(
                     f"rating value must be an integer: {request.data}")
                 return Response(status=status.HTTP_400_BAD_REQUEST)
