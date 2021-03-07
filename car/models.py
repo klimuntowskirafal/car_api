@@ -10,7 +10,7 @@ class Car(models.Model):
     make = models.CharField(max_length=50, null=True, blank=False)
     model = models.CharField(
         max_length=50,
-        null=True,
+        null=False,
         blank=False,
         unique=True)
     created = models.DateTimeField(auto_now_add=True)
