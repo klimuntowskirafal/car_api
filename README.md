@@ -1,5 +1,8 @@
 # Basic Django Rest API
-Check basic car makes and models existence in database. Add, rate, delete and view most rated cars.
+Check basic car makes and models existence in database. 
+
+Add, rate, delete and view most rated cars.
+
 API is interacting with an external API https://vpic.nhtsa.dot.gov/api/ for car existence validation.
 
 Available online: http://car-django-api.herokuapp.com/cars/
