@@ -36,12 +36,7 @@ You can find an example of a file 'env.template'.
 docker-compose up
 ```
 
-# Dummy data:
-
-To load dummy-data:
-```
-py manage.py loaddata test_car_data.json
-```
+Open your browser to http://localhost:8000/cars/ and you should see the browsable version of the API.
 
 # Testing and logging issues:
 
@@ -64,7 +59,7 @@ From the command line, type:
 git clone https://github.com/klimuntowskirafal/car_api
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py loaddata test_car_data.json
+python manage.py loaddata test_car_data.json  #load dummy-data
 python manage.py runserver --settings car_api.settings_local
 ```
 
