@@ -1,9 +1,10 @@
-from django.db.models import Count
+from django.db.models import Count, Avg
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Car, Rate
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.views import APIView, Response
 
 from .methods import get_all_cars_with_calculated_avg_rating, \
@@ -15,19 +16,20 @@ def car_api_main_page(request):
         return render(request, "car_api_introduction.html")
 
 
-class CarApi(APIView):
+@api_view(['GET', 'POST'])
+def car_api(request):
+    if request.method == 'GET':
+        cars = get_all_cars_with_calculated_avg_rating()
+        return Response(cars, status=status.HTTP_200_OK)
 
-    def get(self, request):
-        return get_all_cars_with_calculated_avg_rating()
-
-    def post(self, request):
-        return add_new_car_if_found_in_external_api(self, request)
+    if request.method == 'POST':
+        return add_new_car_if_found_in_external_api(request)
 
 
 class CarApiDelete(APIView):
 
     def delete(self, request, id):
-        car = get_car_object(id, type(self).__name__)
+        car = get_car_object(id, class_name='CarApiDelete')
         car.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -51,7 +53,7 @@ class RateACar(APIView):
                 logger.warning(
                     f"rating value must be an integer: {request.data}")
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-            car = get_car_object(car_id=car_id, class_name=type(self).__name__)
+            car = get_car_object(car_id=car_id, class_name='RateACar')
             instance = Rate(car=car, rating=rating)
             instance.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -64,21 +66,17 @@ class RateACar(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class CarPopularity(APIView):
-
-    def get(self, request):
-        popular_cars = []
-        cars = Car.objects.annotate(
-            num_rate=Count('rate')).order_by('-num_rate')
-        for car in cars:
-            data = {
-                'id': car.id,
-                'make': car.make,
-                'model': car.model,
-                'rates_number': car.num_rate
-            }
-            popular_cars.append(data)
-
-        return JsonResponse(popular_cars,
-                            json_dumps_params={'indent': 2},
-                            safe=False)
+@api_view(['GET'])
+def car_popular(request):
+    popular_cars = []
+    cars = Car.objects.annotate(
+        num_rate=Count('rate')).order_by('-num_rate')
+    for car in cars:
+        data = {
+            'id': car.id,
+            'make': car.make,
+            'model': car.model,
+            'rates_number': car.num_rate
+        }
+        popular_cars.append(data)
+    return Response(popular_cars, status=status.HTTP_200_OK)

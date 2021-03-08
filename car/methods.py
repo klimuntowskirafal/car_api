@@ -1,7 +1,7 @@
 import logging
 import requests
 from django.db.models import Avg
-from django.http import JsonResponse, Http404
+from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -30,11 +30,10 @@ def get_all_cars_with_calculated_avg_rating():
             'avg_rating': avg_rating['avg_rating']
         }
         cars.append(data)
+    return cars
 
-    return JsonResponse(cars, json_dumps_params={'indent': 2}, safe=False)
 
-
-def add_new_car_if_found_in_external_api(self, request):
+def add_new_car_if_found_in_external_api(request):
     expected_request_parameters = 2
     try:
         # validate number of parameters in POST body request
