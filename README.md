@@ -1,4 +1,4 @@
-# REST API - check basic car makes and models existence in database. Add, rate, delete and view most rated cars.
+# Basic Django Rest API - check basic car makes and models existence in database. Add, rate, delete and view most rated cars.
 API is interacting with an external API https://vpic.nhtsa.dot.gov/api/ for car existence validation.
 
 Available online: http://car-django-api.herokuapp.com/cars/
@@ -51,12 +51,17 @@ You can run tests:
 Any issues when interracting with API are printed out in the terminal.
 
 # Development
-Install requirements:
+If you do not use Docker, you can also run project after some basic project setup.
+## Setup
+Create and activate a virtual environment (Python3) using your preferred method. This functionality is built into Python, if you do not have a preference.
+
+From the command line, type:
 ```
+git clone https://github.com/klimuntowskirafal/car_api
 pip install -r requirements.txt
+python manage.py migrate
+python manage.py loaddata test_car_data.json
+python manage.py runserver --settings car_api.settings_local
 ```
 
-If you are not using Docker to run project locally you can also run it by typing in terminal:
-```
-py manage.py runserver --settings car_api.settings_local
-```
+Open your browser to http://localhost:8000/cars/ and you should see the browsable version of the API.
