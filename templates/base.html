@@ -1,0 +1,44 @@
+<!Doctype html>
+
+<html>
+
+<head>
+
+	<title>REST Car API
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+	{% load static %}
+	{% block style %}{% endblock style %}
+
+</head>
+
+<body style="margin:0; overflow-x:hidden;">
+
+	<div class="row">
+    	<div class="col-sm-6 col-sm-offset-3">
+			{% if messages %}
+
+				{% for message in messages  %}
+					<div class="alert alert-{{ message.tags }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+
+	{% block content %}
+	{% endblock content %}
+
+	<script>
+		$(document).ready(function(){
+			{% block jquery %}{% endblock %}
+		})
+	</script>
+
+</body>
+
+</html>
