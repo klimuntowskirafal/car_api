@@ -27,7 +27,7 @@ class CarApi(APIView):
 class CarApiDelete(APIView):
 
     def delete(self, request, id):
-        car = get_car_object(id, type(self).__name__)
+        car = get_car_object(id, class_name='CarApiDelete')
         car.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -51,7 +51,7 @@ class RateACar(APIView):
                 logger.warning(
                     f"rating value must be an integer: {request.data}")
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-            car = get_car_object(car_id=car_id, class_name=type(self).__name__)
+            car = get_car_object(car_id=car_id, class_name='RateACar')
             instance = Rate(car=car, rating=rating)
             instance.save()
             return Response(status=status.HTTP_201_CREATED)
